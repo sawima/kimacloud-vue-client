@@ -4,6 +4,7 @@ import { Message } from 'element-ui'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 import { getToken } from '@/utils/auth' // get token from cookie
+// import { getInfo } from '@/utils/auth' // get token from cookie
 import getPageTitle from '@/utils/get-page-title'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
@@ -31,9 +32,11 @@ router.beforeEach(async(to, from, next) => {
         next()
       } else {
         try {
-          // get user info
-          await store.dispatch('user/getInfo')
+          console.log("next to",to.fullPath);
 
+          await store.dispatch('user/getInfo')
+          console.log("next to",to.path);
+          
           next()
         } catch (error) {
           // remove token and go to login page to re-login
