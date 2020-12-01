@@ -51,10 +51,105 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '控制台', icon: 'dashboard' }
     }]
   },
-
+  {
+    path: '/device',
+    component: Layout,
+    name: 'Device',
+    redirect: '/Device/newdevice',
+    meta: { title: '终端设备', icon: 'el-icon-s-platform' },
+    children: [
+      {
+        path: 'newdevice',
+        name: 'new Device',
+        component: () => import('@/views/device/newDevice'),
+        meta: { title: '注册', icon: 'el-icon-plus' }
+      },
+      {
+        path: 'listdevice',
+        name: 'list devices',
+        component: () => import('@/views/device/listDevice'),
+        meta: { title: '设备列表', icon: 'el-icon-tickets' }
+      },{
+        path: 'devicemodel',
+        name: 'Devices Model',
+        component: () => import('@/views/device/deviceModel'),
+        meta: { title: '终端型号', icon: 'el-icon-s-platform' },
+        children: [
+          {
+            path: 'menu1-1',
+            component: () => import('@/views/nested/menu1/menu1-1'),
+            name: 'Menu1-1',
+            meta: { title: 'Menu1-1' }
+          },
+          {
+            path: 'menu1-2',
+            component: () => import('@/views/nested/menu1/menu1-2'),
+            name: 'Menu1-2',
+            meta: { title: 'Menu1-2' },
+            children: [
+              {
+                path: 'menu1-2-1',
+                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
+                name: 'Menu1-2-1',
+                meta: { title: 'Menu1-2-1' }
+              },
+              {
+                path: 'menu1-2-2',
+                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
+                name: 'Menu1-2-2',
+                meta: { title: 'Menu1-2-2' }
+              }
+            ]
+          },
+          {
+            path: 'menu1-3',
+            component: () => import('@/views/nested/menu1/menu1-3'),
+            name: 'Menu1-3',
+            meta: { title: 'Menu1-3' }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    path: '/customer',
+    component: Layout,
+    name: 'Customer',
+    // redirect: '/Device/newdevice',
+    meta: { title: '客户', icon: 'el-icon-user' },
+    children: [
+      {
+        path: 'newcustomer',
+        name: 'New Customer',
+        component: () => import('@/views/customer/newCustomer'),
+        meta: { title: '新用户', icon: 'el-icon-plus' }
+      },
+      {
+        path: 'listcustomer',
+        name: 'List Customer',
+        component: () => import('@/views/customer/customerList'),
+        meta: { title: '用户列表', icon: 'el-icon-tickets' }
+      }
+    ]
+  },
+  {
+    path: '/templates',
+    component: Layout,
+    name: 'Template',
+    // redirect: '/Device/newdevice',
+    meta: { title: '终端设备', icon: 'el-icon-s-grid' },
+    children: [
+      {
+        path: 'newtemplate',
+        name: 'New Template',
+        component: () => import('@/views/signageTemplate/newTemplate'),
+        meta: { title: '注册', icon: 'el-icon-plus' }
+      }
+    ]
+  },
   {
     path: '/example',
     component: Layout,
