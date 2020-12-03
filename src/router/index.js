@@ -58,7 +58,6 @@ export const constantRoutes = [
     path: '/device',
     component: Layout,
     name: 'Device',
-    redirect: '/Device/newdevice',
     meta: { title: '终端设备', icon: 'el-icon-s-platform' },
     children: [
       {
@@ -72,43 +71,25 @@ export const constantRoutes = [
         name: 'list devices',
         component: () => import('@/views/device/listDevice'),
         meta: { title: '设备列表', icon: 'el-icon-tickets' }
-      },{
+      },
+      {
         path: 'devicemodel',
-        name: 'Devices Model',
-        component: () => import('@/views/device/deviceModel'),
+        name: 'devicemodel',
+        // redirect: '/devicemodel/newmodel',
+        component: () => import('@/views/device/devicemodel/index'),
         meta: { title: '终端型号', icon: 'el-icon-s-platform' },
         children: [
           {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
+            path: 'newmodel',
+            component: () => import('@/views/device/devicemodel/newModel'),
+            name: 'newmodel',
+            meta: { title: '新建型号' }
           },
           {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
+            path: 'modellist',
+            component: () => import('@/views/device/devicemodel/deviceModelList'),
+            name: 'devicemodellist',
+            meta: { title: '型号列表' }
           }
         ]
       }
@@ -118,12 +99,12 @@ export const constantRoutes = [
     path: '/customer',
     component: Layout,
     name: 'Customer',
-    // redirect: '/Device/newdevice',
+    redirect: '/customer/newcustomer',
     meta: { title: '客户', icon: 'el-icon-user' },
     children: [
       {
         path: 'newcustomer',
-        name: 'New Customer',
+        name: 'newcustomer',
         component: () => import('@/views/customer/newCustomer'),
         meta: { title: '新用户', icon: 'el-icon-plus' }
       },

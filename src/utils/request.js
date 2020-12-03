@@ -4,7 +4,8 @@ import { Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 
-const VUE_APP_BASE_API="https://api.kimacloud.com/cicd";
+// const VUE_APP_BASE_API="https://api.kimacloud.com/cicd";
+const VUE_APP_BASE_API = 'http://localhost:3000/test'
 // create an axios instance
 const service = axios.create({
   baseURL: VUE_APP_BASE_API, // url = base url + request url
@@ -16,7 +17,7 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     if (store.getters.token) {
-      config.headers["Authorization"]=getToken()
+      config.headers['Authorization'] = getToken()
     }
     return config
   },
@@ -48,7 +49,7 @@ service.interceptors.response.use(
     Message({
       message: error.message,
       type: 'error',
-      duration: 5 * 1000,
+      duration: 5 * 1000
     })
     return Promise.reject(error)
   }
