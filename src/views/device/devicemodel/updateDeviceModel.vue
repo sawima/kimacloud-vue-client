@@ -20,8 +20,8 @@
         <el-input v-model="form.osversion" />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">新建</el-button>
-        <el-button>取消</el-button>
+        <el-button type="primary" @click="onSubmit">更新</el-button>
+        <el-button @click="onCancel">取消</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -29,10 +29,26 @@
 
 <script>
 // import { mapGetters } from 'vuex'
-import { newDeviceModel } from '@/api/devices'
+import { updateDeviceModel } from '@/api/devices'
 
 export default {
   name: 'NewDeviceModel',
+  // props: {
+  //   form: {
+  //     type: Object,
+  //     // eslint-disable-next-line vue/require-valid-default-prop
+  //     default: () => {
+  //       return {
+  //         hardType: '',
+  //         cpu: '',
+  //         ram: '',
+  //         hd: '',
+  //         os: '',
+  //         osversion: ''
+  //       }
+  //     }
+  //   }
+  // },
   data() {
     return {
       form: {
@@ -41,16 +57,23 @@ export default {
         ram: '',
         hd: '',
         os: '',
-        osversion: ''
+        osversion: '',
+        modelID: ''
       }
     }
   },
+  mounted() {
+    this.form = this.$route.params.form
+  },
   methods: {
     onSubmit() {
-      console.log('submit!')
-      newDeviceModel(this.form).then(res => {
-        this.$router.go()
+      console.log('update!')
+      updateDeviceModel(this.form).then(res => {
+        this.$router.go(-1)
       })
+    },
+    onCancel() {
+      this.$router.go(-1)
     }
   }
 }

@@ -90,6 +90,13 @@ export const constantRoutes = [
             component: () => import('@/views/device/devicemodel/deviceModelList'),
             name: 'devicemodellist',
             meta: { title: '型号列表' }
+          },
+          {
+            path: 'updatemodel',
+            component: () => import('@/views/device/devicemodel/updateDeviceModel'),
+            name: 'updatemodel',
+            meta: { title: '更新型号' },
+            hidden: true
           }
         ]
       }

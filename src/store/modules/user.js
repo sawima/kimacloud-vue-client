@@ -1,4 +1,4 @@
-import { login, logout, setLoginUser,getInfo } from '@/api/user'
+import { login, logout, setLoginUser, getInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
@@ -45,9 +45,9 @@ const actions = {
   getInfo({ commit, state }) {
     console.log("request user info")
     return new Promise((resolve, reject) => {
-      const userName=getInfo();
-      if(userName){
-        commit('SET_NAME',userName )
+      const userName = getInfo()
+      if (userName) {
+        commit('SET_NAME', userName)
         resolve(userName)
       } else {
         reject()
