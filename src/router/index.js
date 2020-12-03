@@ -58,24 +58,25 @@ export const constantRoutes = [
     path: '/device',
     component: Layout,
     name: 'Device',
+    redirect: { name: 'newdevice' },
     meta: { title: '终端设备', icon: 'el-icon-s-platform' },
     children: [
       {
         path: 'newdevice',
-        name: 'new Device',
+        name: 'newdevice',
         component: () => import('@/views/device/newDevice'),
         meta: { title: '注册', icon: 'el-icon-plus' }
       },
       {
         path: 'listdevice',
-        name: 'list devices',
+        name: 'listdevices',
         component: () => import('@/views/device/listDevice'),
         meta: { title: '设备列表', icon: 'el-icon-tickets' }
       },
       {
         path: 'devicemodel',
         name: 'devicemodel',
-        // redirect: '/devicemodel/newmodel',
+        redirect: { name: 'newmodel' },
         component: () => import('@/views/device/devicemodel/index'),
         meta: { title: '终端型号', icon: 'el-icon-s-platform' },
         children: [
