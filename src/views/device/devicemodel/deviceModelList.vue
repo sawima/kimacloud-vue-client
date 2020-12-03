@@ -51,7 +51,8 @@
       width="100"
     >
       <template slot-scope="scope">
-        <el-button type="text" size="small" @click="removeModel(scope.row)">删除</el-button>
+        <!-- <el-button type="text" size="small" @click="removeModel(scope.row)">删除</el-button> -->
+        <el-button type="text" size="small" @click="delConfirm(scope.row)">删除</el-button>
         <el-button type="text" size="small" @click="editModel(scope)">编辑</el-button>
       </template>
     </el-table-column>
@@ -83,15 +84,33 @@ export default {
         this.tableData = data
       })
     },
-    removeModel(row) {
-      console.log('remove row')
-      console.log(row.$index)
-      removeDeviceModel({ modelID: row.modelID }).then(res => {
-        this.tableData.splice(row.$index - 1, 1)
-      })
-    },
     editModel(scope) {
       this.$router.push({ name: 'updatemodel', params: { form: {hardType: scope.row.hardType, os: scope.row.os, modelID: scope.row.modelID, cpu: scope.row.cpu, ram: scope.row.ram, hd: scope.row.hd, osversion: scope.row.osversion }}})
+    },
+    delConfirm(row) {
+      this.$confirm('此操作将永久删除该设备型号, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        removeDeviceModel({ modelID: row.modelID }).then(res => {
+          // this.tableData.splice(row.$index - 1, 1)
+          // const targetIndex=this.tableData.map(e => e.modelID).indexOf(row.modelID)
+          // this.tableData.splice(targetIndex, 1)
+          // eslint-disable-next-line eqeqeq
+          this.tableData.splice(this.tableData.findIndex(item => item.modelID == row.modelID), 1)
+
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          })
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
     }
   }
 }

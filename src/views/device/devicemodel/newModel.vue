@@ -20,7 +20,7 @@
         <el-input v-model="form.osversion" />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">新建</el-button>
+        <el-button type="primary" @click.prevent="onSubmit">新建</el-button>
         <el-button>取消</el-button>
       </el-form-item>
     </el-form>
@@ -49,7 +49,8 @@ export default {
     onSubmit() {
       console.log('submit!')
       newDeviceModel(this.form).then(res => {
-        this.$router.go()
+        // this.$router.go()
+        this.form = {}
       })
     }
   }
