@@ -69,9 +69,9 @@ export default {
       loading: false
     }
   },
-  watch: {
-    '$route': 'fetchData'
-  },
+  // watch: {
+  //   '$route': 'fetchData'
+  // },
   created() {
     this.fetchData()
   },
@@ -85,7 +85,7 @@ export default {
       })
     },
     editModel(scope) {
-      this.$router.push({ name: 'updatemodel', params: { form: {hardType: scope.row.hardType, os: scope.row.os, modelID: scope.row.modelID, cpu: scope.row.cpu, ram: scope.row.ram, hd: scope.row.hd, osversion: scope.row.osversion }}})
+      this.$router.push({ name: 'updatemodel', params: { form: { hardType: scope.row.hardType, os: scope.row.os, modelID: scope.row.modelID, cpu: scope.row.cpu, ram: scope.row.ram, hd: scope.row.hd, osversion: scope.row.osversion }}})
     },
     delConfirm(row) {
       this.$confirm('此操作将永久删除该设备型号, 是否继续?', '提示', {

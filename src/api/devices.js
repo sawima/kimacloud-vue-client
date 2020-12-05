@@ -15,6 +15,28 @@ export function newDevice(data) {
   })
 }
 
+export function deviceList() {
+  return request({
+    url: '/deviceList',
+    method: 'get'
+  })
+}
+
+export function removeDevice(data) {
+  return request({
+    url: '/removeDevice',
+    method: 'post',
+    data
+  })
+}
+export function toggleDevice(data) {
+  return request({
+    url: '/toggleDevice',
+    method: 'post',
+    data
+  })
+}
+
 export function deviceModelList(data) {
   return request({
     url: '/deviceModelList',

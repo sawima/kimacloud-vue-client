@@ -47,3 +47,16 @@
 .el-range-separator {
   box-sizing: content-box;
 }
+
+.el-select {
+  width: 100%;
+}
+
+
+tr.not-activated-row {
+  background: rgb(236, 238, 233);
+}
+
+tr.disable-row {
+  background: rgb(172, 87, 139);
+}

@@ -9,7 +9,7 @@ const getDefaultState = () => {
   }
 }
 
-const state = getDefaultState();
+const state = getDefaultState()
 
 const mutations = {
   RESET_STATE: (state) => {
@@ -43,7 +43,7 @@ const actions = {
 
   // get user info
   getInfo({ commit, state }) {
-    console.log("request user info")
+    console.log('request user info')
     return new Promise((resolve, reject) => {
       const userName = getInfo()
       if (userName) {
