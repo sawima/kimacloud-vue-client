@@ -1,12 +1,26 @@
 import request from '@/utils/request'
 import Cookies from 'js-cookie'
 
-const LoginUserKey= 'kimacloud_User_key'
+const LoginUserKey = 'Kimacloud_Signage_Client_key'
 
-
-export function login(data) {
+export function getSMSCode(data) {
   return request({
-    url: '/fetchManagementToken',
+    url: '/getVerifyCode',
+    method: 'post',
+    data
+  })
+}
+
+export function smslogin(data) {
+  return request({
+    url: '/mobileVerifylogin',
+    method: 'post',
+    data
+  })
+}
+export function pwdlogin(data) {
+  return request({
+    url: '/mobilepasswdlogin',
     method: 'post',
     data
   })
@@ -30,8 +44,6 @@ export function logout() {
 }
 
 export function setLoginUser(userName) {
-  console.log("set user name");
-
-  
-  return Cookies.set(LoginUserKey,userName)
+  console.log('set user name')
+  return Cookies.set(LoginUserKey, userName)
 }

@@ -51,7 +51,7 @@
       >
         <template slot-scope="scope">
           <!-- <el-button type="text" size="small" @click="removeModel(scope.row)">删除</el-button> -->
-          <el-button type="danger" size="small"  icon="el-icon-delete" circle @click="delConfirm(scope.row)" />
+          <el-button type="danger" size="small" icon="el-icon-delete" circle @click="delConfirm(scope.row)" />
           <el-button v-if="scope.row.isDisabled === false " size="small" type="info" icon="el-icon-error" circle @click="toggleDevice(scope.row)" />
           <el-button v-else type="danger" size="small" icon="el-icon-check" circle @click="toggleDevice(scope.row)" />
         </template>

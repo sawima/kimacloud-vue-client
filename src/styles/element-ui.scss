@@ -60,3 +60,10 @@ tr.not-activated-row {
 tr.disable-row {
   background: rgb(172, 87, 139);
 }
+
+.login-tabs .el-tabs__item {
+  color: #e98d15 !important
+}
+.login-tabs .el-tabs__item.is-active {
+color: #ffffff !important
+}
