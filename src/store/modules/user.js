@@ -1,4 +1,4 @@
-import { login, logout, setLoginUser, getInfo } from '@/api/user'
+import { userPWDLogin, userSMSLogin, logout, setLoginUser, getInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
@@ -25,22 +25,37 @@ const mutations = {
 
 const actions = {
   // user login
-  login({ commit }, userInfo) {
+  passLogin({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
-      login({ userID: username.trim(), password: password }).then(response => {
+      userPWDLogin({ mobile: username.trim(), password: password }).then(response => {
         const { data } = response
         commit('SET_TOKEN', data.token)
-        commit('SET_NAME', data.user.Context.userName)
+        commit('SET_NAME', data.user.Context.nickName)
         setToken(data.token)
-        setLoginUser(data.user.Context.userName)
+        setLoginUser(data.user.Context.nickName)
         resolve()
       }).catch(error => {
         reject(error)
       })
     })
   },
-
+  smsLogin({ commit }, userInfo) {
+    console.log(userInfo)
+    const { mobile, smsCode } = userInfo
+    return new Promise((resolve, reject) => {
+      userSMSLogin({ mobile: mobile.trim(), verifyCode: smsCode }).then(response => {
+        const { data } = response
+        commit('SET_TOKEN', data.token)
+        commit('SET_NAME', data.user.Context.nickName)
+        setToken(data.token)
+        setLoginUser(data.user.Context.nickName)
+        resolve()
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
   // get user info
   getInfo({ commit, state }) {
     console.log('request user info')

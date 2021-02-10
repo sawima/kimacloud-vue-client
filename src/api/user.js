@@ -11,14 +11,15 @@ export function getSMSCode(data) {
   })
 }
 
-export function smslogin(data) {
+export function userSMSLogin(data) {
   return request({
     url: '/mobileVerifylogin',
     method: 'post',
     data
   })
 }
-export function pwdlogin(data) {
+
+export function userPWDLogin(data) {
   return request({
     url: '/mobilepasswdlogin',
     method: 'post',

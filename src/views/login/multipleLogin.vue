@@ -73,13 +73,13 @@
               name="smsCode"
               tabindex="2"
               auto-complete="on"
-              @keyup.enter.native="handleLogin"
+              @keyup.enter.native="handleSMSLogin"
             />
-            <span class="show-pwd" @click="getSMSCode">
+            <!-- <span class="show-pwd" @click="getSMSCode">
               <svg-icon icon-class="link" />
-            </span>
+            </span> -->
             <el-tooltip class="item" effect="dark" content="获取验证码" placement="top-start">
-              <span class="show-pwd" @click="getSMSCode">
+              <span class="show-pwd" @click="requestSMSCode">
                 <svg-icon icon-class="link" />
               </span>
             </el-tooltip>
@@ -96,7 +96,7 @@
 
 <script>
 import { validUsername } from '@/utils/validate'
-import { getSMSCode, smslogin, pwdlogin } from '@/api/user'
+import { getSMSCode } from '@/api/user'
 
 export default {
   name: 'Login',
@@ -166,7 +166,7 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
+          this.$store.dispatch('user/passLogin', this.loginForm).then(() => {
             this.$router.push({ path: this.redirect || '/' })
             this.loading = false
           }).catch(() => {
@@ -179,10 +179,11 @@ export default {
       })
     },
     handleSMSLogin() {
+      console.log("sms login")
       this.$refs.smsLoginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
+          this.$store.dispatch('user/smsLogin', this.smsLoginForm).then(() => {
             this.$router.push({ path: this.redirect || '/' })
             this.loading = false
           }).catch(() => {
@@ -194,7 +195,7 @@ export default {
         }
       })
     },
-    getSMSCode() {
+    requestSMSCode() {
       if (this.smsLoginForm.mobile === '' || this.smsLoginForm.mobile === null) {
         this.$message({
           type: 'warning',
@@ -206,13 +207,12 @@ export default {
           message: 'get sms code'
         })
         if (this.sendSMSSignal) {
-          getSMSCode({mobile: this.smsLoginForm.mobile}).then((res) => {
+          getSMSCode({ mobile: this.smsLoginForm.mobile }).then((res) => {
             console.log(res)
           })
           this.sendSMSSignal = false
         }
       }
-
     }
   }
 }

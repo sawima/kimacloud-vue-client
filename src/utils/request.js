@@ -4,8 +4,8 @@ import { Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 
-const VUE_APP_BASE_API = 'https://api.kimacloud.com/cicd'
-// const VUE_APP_BASE_API = 'http://localhost:3000/test'
+// const VUE_APP_BASE_API = 'https://api.kimacloud.com/cicd'
+const VUE_APP_BASE_API = 'http://localhost:3000/test'
 // create an axios instance
 const service = axios.create({
   baseURL: VUE_APP_BASE_API, // url = base url + request url
