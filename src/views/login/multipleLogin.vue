@@ -179,7 +179,6 @@ export default {
       })
     },
     handleSMSLogin() {
-      console.log("sms login")
       this.$refs.smsLoginForm.validate(valid => {
         if (valid) {
           this.loading = true
@@ -204,7 +203,7 @@ export default {
       } else {
         this.$message({
           type: 'success',
-          message: 'get sms code'
+          message: '成功获取手机验证码'
         })
         if (this.sendSMSSignal) {
           getSMSCode({ mobile: this.smsLoginForm.mobile }).then((res) => {
