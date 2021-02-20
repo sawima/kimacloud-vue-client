@@ -1,19 +1,19 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">name: {{ name }}</div>
+    <h3>Org Detail</h3>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+// import { mapGetters } from 'vuex'
 
 export default {
-  name: 'Dashboard',
-  computed: {
-    ...mapGetters([
-      'name'
-    ])
-  }
+  name: 'Org'
+//   computed: {
+//     ...mapGetters([
+//       'name'
+//     ])
+//   }
 }
 </script>
 

@@ -42,7 +42,52 @@ export const constantRoutes = [
     component: () => import('@/views/404'),
     hidden: true
   },
+  // {
+  //   path: '/org',
+  //   component: Layout,
+  //   redirect: '/registerOrg',
+  //   children: [{
+  //     path: 'registerOrg',
+  //     name: '组织管理',
+  //     component: () => import('@/views/org/index'),
+  //     meta: { title: '组织管理', icon: 'dashboard' }
+  //   }]
+  //   // hidden: true
+  // },
 
+  {
+    path: '/org',
+    component: Layout,
+    name: 'Org',
+    redirect: { name: 'registerOrg' },
+    meta: { title: '组织管理', icon: 'dashboard' },
+    children: [
+      {
+        path: 'registerOrg',
+        name: 'registerOrg',
+        component: () => import('@/views/org/index'),
+        meta: { title: '组织管理', icon: 'dashboard' }
+      },
+      {
+        path: 'newOrg',
+        name: 'newOrg',
+        component: () => import('@/views/org/newOrg'),
+        meta: { title: '新建组织', icon: 'el-icon-tickets' }
+      },
+      {
+        path: 'joinOrg',
+        name: 'joinOrg',
+        component: () => import('@/views/org/joinOrg'),
+        meta: { title: '加入组织', icon: 'el-icon-tickets' }
+      },
+      {
+        path: 'orgDetail',
+        name: 'orgDetail',
+        component: () => import('@/views/org/orgDetail'),
+        meta: { title: '组织信息', icon: 'el-icon-tickets' }
+      }
+    ]
+  },
   {
     path: '/',
     component: Layout,
@@ -100,6 +145,30 @@ export const constantRoutes = [
             hidden: true
           }
         ]
+      }
+    ]
+  },
+  {
+    path: '/devices',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'devices',
+        component: () => import('@/views/devices/index'),
+        meta: { title: '设备', icon: 'el-icon-s-platform' }
+      }
+    ]
+  },
+  {
+    path: '/appStore',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'appstore',
+        component: () => import('@/views/apps/index'),
+        meta: { title: '应用商店', icon: 'el-icon-s-help' }
       }
     ]
   },
