@@ -1,27 +1,26 @@
 <template>
   <div class="dashboard-container">
-    <h3>Org Detail</h3>
-    <p>{{ $route.params.orgID }}</p>
+    <div class="dashboard-text">change passwd</div>
   </div>
 </template>
 
 <script>
-// import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
-  name: 'Org'
-//   computed: {
-//     ...mapGetters([
-//       'name'
-//     ])
-//   }
+  name: 'ChangePWD',
+  computed: {
+    ...mapGetters([
+      'userContext'
+    ])
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .dashboard {
   &-container {
-    margin: 30px;
+    margin: 10px;
   }
   &-text {
     font-size: 30px;

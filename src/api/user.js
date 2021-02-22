@@ -33,7 +33,9 @@ export function getInfo() {
   //   method: 'get',
   //   // params: { token }
   // })
-  return Cookies.get(LoginUserKey)
+  console.log('get User Info')
+  const userInfo = Cookies.get(LoginUserKey)
+  return userInfo ? JSON.parse(userInfo) : {}
 }
 
 export function logout() {
@@ -45,6 +47,5 @@ export function logout() {
 }
 
 export function setLoginUser(userName) {
-  console.log('set user name')
   return Cookies.set(LoginUserKey, userName)
 }

@@ -5,6 +5,7 @@ import { resetRouter } from '@/router'
 const getDefaultState = () => {
   return {
     token: getToken(),
+    userContext: {},
     name: ''
   }
 }
@@ -17,6 +18,9 @@ const mutations = {
   },
   SET_TOKEN: (state, token) => {
     state.token = token
+  },
+  SET_USER: (state, userData) => {
+    state.userContext = userData
   },
   SET_NAME: (state, name) => {
     state.name = name
@@ -31,9 +35,10 @@ const actions = {
       userPWDLogin({ mobile: username.trim(), password: password }).then(response => {
         const { data } = response
         commit('SET_TOKEN', data.token)
+        commit('SET_USER', data.user.Context)
         commit('SET_NAME', data.user.Context.nickName)
         setToken(data.token)
-        setLoginUser(data.user.Context.nickName)
+        setLoginUser(JSON.stringify(data.user.Context))
         resolve()
       }).catch(error => {
         reject(error)
@@ -41,15 +46,15 @@ const actions = {
     })
   },
   smsLogin({ commit }, userInfo) {
-    console.log(userInfo)
     const { mobile, smsCode } = userInfo
     return new Promise((resolve, reject) => {
       userSMSLogin({ mobile: mobile.trim(), verifyCode: smsCode }).then(response => {
         const { data } = response
         commit('SET_TOKEN', data.token)
+        commit('SET_USER', data.user.Context)
         commit('SET_NAME', data.user.Context.nickName)
         setToken(data.token)
-        setLoginUser(data.user.Context.nickName)
+        setLoginUser(JSON.stringify(data.user.Context))
         resolve()
       }).catch(error => {
         reject(error)
@@ -57,13 +62,14 @@ const actions = {
     })
   },
   // get user info
-  getInfo({ commit, state }) {
+  getUserInfo({ commit, state }) {
     console.log('request user info')
     return new Promise((resolve, reject) => {
-      const userName = getInfo()
-      if (userName) {
-        commit('SET_NAME', userName)
-        resolve(userName)
+      const userInfo = getInfo()
+      if (userInfo) {
+        commit('SET_USER', userInfo)
+        commit('SET_NAME', userInfo.nickName)
+        resolve(userInfo)
       } else {
         reject()
       }

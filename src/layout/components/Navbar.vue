@@ -7,7 +7,8 @@
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
-          <img src="@/assets/images/avatar.png" class="user-avatar">
+          <!-- <img src="@/assets/images/avatar.png" class="user-avatar"> -->
+          <p>{{ userContext.nickName }}</p>
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
@@ -16,7 +17,7 @@
               主页
             </el-dropdown-item>
           </router-link>
-          <router-link to="/">
+          <router-link to="/changepwd">
             <el-dropdown-item>
               修改密码
             </el-dropdown-item>
@@ -48,7 +49,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'sidebar'
+      'sidebar',
+      'userContext'
     ])
   },
   methods: {

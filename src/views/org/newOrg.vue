@@ -28,10 +28,9 @@
         <el-card class="box-card">
           <!-- <p>{{ org.orgName }}</p> -->
           <span>团队名称 {{ org.orgName }}</span>
-          <el-button size="mini" round @click="$router.push('orgDetail')">团队详情</el-button>
+          <el-button size="mini" round @click="$router.push({name:'orgDetail', params: {orgID: org.orgID}})">团队详情</el-button>
         </el-card>
       </el-col>
-
     </el-row>
   </div>
 </template>
@@ -66,11 +65,11 @@ export default {
         const { data } = res
         this.orgList = data
         console.log(data)
-        if (data && data.Items) {
-          this.orgList = data.Items
+        if (data && data.Item) {
+          this.orgList = data.Item.orgs || []
+        } else {
+          this.orgList = []
         }
-        console.log('****orglist')
-        console.log(data.Items)
       })
     },
     onSubmit() {
@@ -101,7 +100,7 @@ export default {
     margin: 10px;
   }
   &-text {
-    font-size: 30px;
+    font-size: 14px;
     line-height: 46px;
   }
 }

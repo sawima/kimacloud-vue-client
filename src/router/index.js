@@ -43,6 +43,18 @@ export const constantRoutes = [
     hidden: true
   },
   // {
+  //   path: '/',
+  //   component: Layout,
+  //   redirect: '/changepwd',
+  //   children: [{
+  //     path: '/changepwd',
+  //     name: 'ChangePWD',
+  //     component: () => import('@/views/login/changePwd'),
+  //     meta: { title: '修改密码', icon: 'dashboard' }
+  //   }]
+  //   // hidden: true
+  // },
+  // {
   //   path: '/org',
   //   component: Layout,
   //   redirect: '/registerOrg',
@@ -84,7 +96,7 @@ export const constantRoutes = [
         path: 'orgDetail',
         name: 'orgDetail',
         component: () => import('@/views/org/orgDetail'),
-        meta: { title: '组织信息', icon: 'el-icon-tickets' }
+        meta: { title: '组织详情', icon: 'el-icon-tickets' }
       }
     ]
   },
@@ -97,6 +109,13 @@ export const constantRoutes = [
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
       meta: { title: '控制台', icon: 'dashboard' }
+    },
+    {
+      path: '/changepwd',
+      name: 'ChangePWD',
+      component: () => import('@/views/login/changePwd'),
+      meta: { title: '修改密码', icon: 'dashboard' },
+      hidden:true
     }]
   },
   {

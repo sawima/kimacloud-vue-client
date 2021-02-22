@@ -31,12 +31,11 @@ router.beforeEach(async(to, from, next) => {
       if (hasGetUserInfo) {
         next()
       } else {
+        console.log('try to get user info')
         try {
-          console.log("next to",to.fullPath);
-
-          await store.dispatch('user/getInfo')
-          console.log("next to",to.path);
-          
+          console.log('next to', to.fullPath)
+          await store.dispatch('user/getUserInfo')
+          console.log('next to', to.path)
           next()
         } catch (error) {
           // remove token and go to login page to re-login
