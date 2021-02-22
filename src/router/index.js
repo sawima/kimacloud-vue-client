@@ -96,7 +96,8 @@ export const constantRoutes = [
         path: 'orgDetail',
         name: 'orgDetail',
         component: () => import('@/views/org/orgDetail'),
-        meta: { title: '组织详情', icon: 'el-icon-tickets' }
+        meta: { title: '组织详情', icon: 'el-icon-tickets' },
+        hidden: true
       }
     ]
   },
@@ -111,65 +112,68 @@ export const constantRoutes = [
       meta: { title: '控制台', icon: 'dashboard' }
     },
     {
-      path: '/changepwd',
-      name: 'ChangePWD',
-      component: () => import('@/views/login/changePwd'),
-      meta: { title: '修改密码', icon: 'dashboard' },
+      path: '/userprofile',
+      name: 'UserProfile',
+      component: () => import('@/views/login/userProfile'),
+      meta: { title: '用户信息', icon: 'dashboard' },
       hidden: true
     }]
   },
-  {
-    path: '/device',
-    component: Layout,
-    name: 'Device',
-    redirect: { name: 'newdevice' },
-    meta: { title: '终端设备', icon: 'el-icon-s-platform' },
-    children: [
-      {
-        path: 'newdevice',
-        name: 'newdevice',
-        component: () => import('@/views/device/newDevice'),
-        meta: { title: '注册', icon: 'el-icon-plus' }
-      },
-      {
-        path: 'listdevice',
-        name: 'listdevices',
-        component: () => import('@/views/device/listDevice'),
-        meta: { title: '设备列表', icon: 'el-icon-tickets' }
-      },
-      {
-        path: 'devicemodel',
-        name: 'devicemodel',
-        redirect: { name: 'newmodel' },
-        component: () => import('@/views/device/devicemodel/index'),
-        meta: { title: '终端型号', icon: 'el-icon-s-platform' },
-        children: [
-          {
-            path: 'newmodel',
-            component: () => import('@/views/device/devicemodel/newModel'),
-            name: 'newmodel',
-            meta: { title: '新建型号' }
-          },
-          {
-            path: 'modellist',
-            component: () => import('@/views/device/devicemodel/deviceModelList'),
-            name: 'devicemodellist',
-            meta: { title: '型号列表' }
-          },
-          {
-            path: 'updatemodel',
-            component: () => import('@/views/device/devicemodel/updateDeviceModel'),
-            name: 'updatemodel',
-            meta: { title: '更新型号' },
-            hidden: true
-          }
-        ]
-      }
-    ]
-  },
+  // {
+  //   path: '/device',
+  //   component: Layout,
+  //   name: 'Device',
+  //   redirect: { name: 'newdevice' },
+  //   meta: { title: '终端设备', icon: 'el-icon-s-platform' },
+  //   children: [
+  //     {
+  //       path: 'newdevice',
+  //       name: 'newdevice',
+  //       component: () => import('@/views/device/newDevice'),
+  //       meta: { title: '注册', icon: 'el-icon-plus' }
+  //     },
+  //     {
+  //       path: 'listdevice',
+  //       name: 'listdevices',
+  //       component: () => import('@/views/device/listDevice'),
+  //       meta: { title: '设备列表', icon: 'el-icon-tickets' }
+  //     },
+  //     {
+  //       path: 'devicemodel',
+  //       name: 'devicemodel',
+  //       redirect: { name: 'newmodel' },
+  //       component: () => import('@/views/device/devicemodel/index'),
+  //       meta: { title: '终端型号', icon: 'el-icon-s-platform' },
+  //       children: [
+  //         {
+  //           path: 'newmodel',
+  //           component: () => import('@/views/device/devicemodel/newModel'),
+  //           name: 'newmodel',
+  //           meta: { title: '新建型号' }
+  //         },
+  //         {
+  //           path: 'modellist',
+  //           component: () => import('@/views/device/devicemodel/deviceModelList'),
+  //           name: 'devicemodellist',
+  //           meta: { title: '型号列表' }
+  //         },
+  //         {
+  //           path: 'updatemodel',
+  //           component: () => import('@/views/device/devicemodel/updateDeviceModel'),
+  //           name: 'updatemodel',
+  //           meta: { title: '更新型号' },
+  //           hidden: true
+  //         }
+  //       ]
+  //     }
+  //   ]
+  // },
   {
     path: '/devices',
     component: Layout,
+    name: 'Device',
+    redirect: { name: 'devices' },
+    meta: { title: '终端设备', icon: 'el-icon-s-platform' },
     children: [
       {
         path: 'index',

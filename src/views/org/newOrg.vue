@@ -36,9 +36,9 @@
 </template>
 
 <script>
-// import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 
-import { newOrg, orgListByUser } from '@/api/org'
+import { newOrg } from '@/api/org'
 
 export default {
   name: 'NewOrg',
@@ -56,22 +56,28 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapGetters([
+      'userContext'
+    ])
+  },
   created() {
-    this.fetchData()
+    // this.fetchData()
+    this.orgList = this.userContext.orgs || []
   },
   methods: {
-    fetchData() {
-      orgListByUser().then(res => {
-        const { data } = res
-        this.orgList = data
-        console.log(data)
-        if (data && data.Item) {
-          this.orgList = data.Item.orgs || []
-        } else {
-          this.orgList = []
-        }
-      })
-    },
+    // fetchData() {
+    //   orgListByUser().then(res => {
+    //     const { data } = res
+    //     this.orgList = data
+    //     console.log(data)
+    //     if (data && data.Item) {
+    //       this.orgList = data.Item.orgs || []
+    //     } else {
+    //       this.orgList = []
+    //     }
+    //   })
+    // },
     onSubmit() {
       if (this.orgList.length <= 5) {
         newOrg(this.form).then(res => {
@@ -95,15 +101,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.dashboard {
-  &-container {
-    margin: 10px;
-  }
-  &-text {
-    font-size: 14px;
-    line-height: 46px;
-  }
-}
 .row-margin-top-20 {
     margin-top: 20px;
 }
