@@ -34,7 +34,7 @@ router.beforeEach(async(to, from, next) => {
         console.log('try to get user info')
         try {
           console.log('next to', to.fullPath)
-          await store.dispatch('user/getUserInfo')
+          await store.dispatch('user/refreshUserInfo')
           console.log('next to', to.path)
           next()
         } catch (error) {

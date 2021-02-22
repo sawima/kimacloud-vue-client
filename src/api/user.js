@@ -49,3 +49,26 @@ export function logout() {
 export function setLoginUser(userName) {
   return Cookies.set(LoginUserKey, userName)
 }
+
+export function changePasswd(newPass) {
+  console.log('***')
+  console.log(newPass)
+  return request({
+    url: '/setPassword',
+    method: 'post',
+    data: newPass
+  })
+}
+export function updateUserProfile(userProfile) {
+  return request({
+    url: '/updateUserProfile',
+    method: 'post',
+    data: userProfile
+  })
+}
+export function getFullUserInfo() {
+  return request({
+    url: '/getFullUserInfo',
+    method: 'get'
+  })
+}

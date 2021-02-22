@@ -115,7 +115,7 @@ export const constantRoutes = [
       name: 'ChangePWD',
       component: () => import('@/views/login/changePwd'),
       meta: { title: '修改密码', icon: 'dashboard' },
-      hidden:true
+      hidden: true
     }]
   },
   {

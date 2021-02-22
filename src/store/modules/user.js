@@ -1,4 +1,4 @@
-import { userPWDLogin, userSMSLogin, logout, setLoginUser, getInfo } from '@/api/user'
+import { userPWDLogin, userSMSLogin, logout, setLoginUser, getInfo, getFullUserInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
@@ -54,7 +54,7 @@ const actions = {
         commit('SET_USER', data.user.Context)
         commit('SET_NAME', data.user.Context.nickName)
         setToken(data.token)
-        setLoginUser(JSON.stringify(data.user.Context))
+        setLoginUser(data.user.Context.userID)
         resolve()
       }).catch(error => {
         reject(error)
@@ -73,6 +73,21 @@ const actions = {
       } else {
         reject()
       }
+    })
+  },
+
+  refreshUserInfo({ commit }) {
+    console.log('refresh user info')
+    return new Promise((resolve, reject) => {
+      getFullUserInfo().then(response => {
+        const { data } = response
+        commit('SET_USER', data.Item)
+        commit('SET_NAME', data.Item.nickName)
+        setLoginUser(data.Item.userID)
+        resolve()
+      }).catch(error => {
+        reject(error)
+      })
     })
   },
 
