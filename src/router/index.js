@@ -180,6 +180,18 @@ export const constantRoutes = [
         name: 'devices',
         component: () => import('@/views/devices/index'),
         meta: { title: '设备', icon: 'el-icon-s-platform' }
+      },
+      {
+        path: 'deviceview',
+        name: 'deviceview',
+        component: () => import('@/views/devices/deviceView'),
+        meta: { title: '设备详情', icon: 'el-icon-s-platform' }
+      },
+      {
+        path: 'editdevice',
+        name: 'editdevice',
+        component: () => import('@/views/devices/editDevice'),
+        meta: { title: '编辑设备', icon: 'el-icon-s-platform' }
       }
     ]
   },
