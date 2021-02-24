@@ -56,11 +56,19 @@ export default {
     Breadcrumb,
     Hamburger
   },
+  data() {
+    return {
+      orgList: []
+    }
+  },
   computed: {
     ...mapGetters([
       'sidebar',
       'userContext'
     ])
+  },
+  created() {
+    this.orgList = this.userContext.orgs
   },
   methods: {
     toggleSideBar() {

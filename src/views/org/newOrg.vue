@@ -3,13 +3,13 @@
     <el-row :gutter="20">
       <el-col :span="16">
         <el-card class="box-card">
-          <el-form ref="form" :model="form" :rules="rules" label-width="80px" size="mini">
+          <el-form ref="newOrgForm" :model="newOrgForm" :rules="rules" label-width="80px" size="mini">
             <el-form-item label="团队名称" prop="orgName">
-              <el-input v-model="form.orgName" />
+              <el-input v-model="newOrgForm.orgName" />
             </el-form-item>
             <el-form-item label="团队说明" prop="orgDescription">
               <el-input
-                v-model="form.orgDescription"
+                v-model="newOrgForm.orgDescription"
                 type="textarea"
                 :rows="2"
                 placeholder="请输入内容"
@@ -39,12 +39,13 @@
 import { mapGetters } from 'vuex'
 
 import { newOrg } from '@/api/org'
+import { setLoginUser } from '@/utils/auth'
 
 export default {
   name: 'NewOrg',
   data() {
     return {
-      form: {
+      newOrgForm: {
         orgName: '',
         orgDescription: ''
       },
@@ -79,22 +80,32 @@ export default {
     //   })
     // },
     onSubmit() {
-      if (this.orgList.length <= 5) {
-        newOrg(this.form).then(res => {
-          this.orgList.push({
-            orgName: this.form.orgName,
-            orgDescription: this.form.orgDescription
-          })
-          this.form = {}
-          this.selectedModel = ''
-          this.$message(res.message)
-        })
-      } else {
-        this.$message('超过创建团队数量限制')
-      }
+      this.$refs.newOrgForm.validate((valid) => {
+        if (valid) {
+          console.log('org list !!!')
+          console.log(this.orgList)
+          if (this.orgList.length <= 5) {
+            newOrg(this.newOrgForm).then(res => {
+              this.orgList.push({
+                orgName: this.newOrgForm.orgName,
+                orgID: res.data.orgID,
+                orgDescription: this.newOrgForm.orgDescription
+              })
+              this.userContext.orgs = this.orgList
+              setLoginUser(this.userContext)
+              this.$store.dispatch('user/getUserInfo')
+              this.newOrgForm = {}
+              this.selectedModel = ''
+              this.$message(res.message)
+            })
+          } else {
+            this.$message('超过创建团队数量限制')
+          }
+        }
+      })
     },
     resetForm() {
-      this.form = {}
+      this.newOrgForm = {}
     }
   }
 }

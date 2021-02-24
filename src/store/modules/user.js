@@ -3,11 +3,21 @@ import { getToken, setToken, removeToken, logout, setLoginUser, getInfo } from '
 import { resetRouter } from '@/router'
 
 const getDefaultState = () => {
-  return {
-    token: getToken(),
-    userContext: {},
-    name: '',
-    orgs: []
+  const userInfo = getInfo()
+  if (userInfo) {
+    return {
+      token: getToken(),
+      userContext: userInfo,
+      name: userInfo.nickName || '',
+      orgs: userInfo.orgs || []
+    }
+  } else {
+    return {
+      token: getToken(),
+      userContext: {},
+      name: '',
+      orgs: []
+    }
   }
 }
 
@@ -72,6 +82,7 @@ const actions = {
     console.log('request user info')
     return new Promise((resolve, reject) => {
       const userInfo = getInfo()
+      console.log(userInfo)
       if (userInfo) {
         commit('SET_USER', userInfo)
         commit('SET_NAME', userInfo.nickName)

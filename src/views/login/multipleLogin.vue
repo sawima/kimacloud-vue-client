@@ -201,13 +201,13 @@ export default {
           message: '手机号为空'
         })
       } else {
-        this.$message({
-          type: 'success',
-          message: '成功获取手机验证码'
-        })
         if (this.sendSMSSignal) {
           getSMSCode({ mobile: this.smsLoginForm.mobile }).then((res) => {
             console.log(res)
+            this.$message({
+              type: 'success',
+              message: '成功获取手机验证码'
+            })
           })
           this.sendSMSSignal = false
         }

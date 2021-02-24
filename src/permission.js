@@ -29,7 +29,7 @@ router.beforeEach(async(to, from, next) => {
     } else {
       console.log('success login and to path -------')
       const hasGetUserInfo = getInfo()
-      const userOrgs = store.getters.orgs
+      const userOrgs = hasGetUserInfo.orgs
       console.log('if org is not exist')
       console.log(to.path)
       if (to.path !== '/org') {
