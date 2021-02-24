@@ -11,6 +11,9 @@
           <el-form-item label="激活码">
             <el-input v-model="activateForm.activateCode" placeholder="激活码" />
           </el-form-item>
+          <el-form-item label="设备名称">
+            <el-input v-model="activateForm.terminalName" placeholder="设备名称" />
+          </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="btnActivateDevice">绑定设备</el-button>
           </el-form-item>
@@ -20,6 +23,11 @@
           border
           style="width: 100%"
         >
+          <el-table-column
+            prop="terminalName"
+            label="设备名称"
+            width="150"
+          />
           <el-table-column
             prop="macAddress"
             label="设备编号"
@@ -35,7 +43,7 @@
             width="100"
           >
             <template slot-scope="scope">
-              <el-button type="text" size="small" @click="handleClick(scope.row)">查看</el-button>
+              <el-button type="text" size="small" @click="$router.push({name:'deviceview',params:scope.row})">查看</el-button>
               <el-button type="text" size="small">编辑</el-button>
             </template>
           </el-table-column>
@@ -58,7 +66,8 @@ export default {
       activeName: 'first',
       activateForm: {
         macAddress: '',
-        activateCode: ''
+        activateCode: '',
+        terminalName: ''
       },
       deviceTableData: [],
       orgID: this.$route.params.orgID
@@ -81,7 +90,8 @@ export default {
       const activateParams = {
         deviceMAC: this.activateForm.macAddress,
         activateCode: this.activateForm.activateCode,
-        orgID: this.$route.params.orgID
+        orgID: this.$route.params.orgID,
+        terminalName: this.activateForm.terminalName
       }
       activateDevice(activateParams).then(res => {
         // console.log(res)

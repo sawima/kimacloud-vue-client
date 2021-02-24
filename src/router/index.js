@@ -105,11 +105,19 @@ export const constantRoutes = [
     path: '/',
     component: Layout,
     redirect: '/dashboard',
+    name: 'MainBo',
+    meta: { title: 'Dash', icon: 'dashboard' },
     children: [{
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
       meta: { title: '控制台', icon: 'dashboard' }
+    },
+    {
+      path: 'orgassets',
+      name: 'OrgAssets',
+      component: () => import('@/views/dashboard/assets'),
+      meta: { title: '素材管理', icon: 'dashboard' }
     },
     {
       path: '/userprofile',
@@ -188,10 +196,10 @@ export const constantRoutes = [
         meta: { title: '设备详情', icon: 'el-icon-s-platform' }
       },
       {
-        path: 'editdevice',
-        name: 'editdevice',
-        component: () => import('@/views/devices/editDevice'),
-        meta: { title: '编辑设备', icon: 'el-icon-s-platform' }
+        path: 'editappassets',
+        name: 'editappassets',
+        component: () => import('@/views/devices/editAppAssets'),
+        meta: { title: '应用内容编排', icon: 'el-icon-s-platform' }
       }
     ]
   },

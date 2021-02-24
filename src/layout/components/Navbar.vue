@@ -5,34 +5,43 @@
     <breadcrumb class="breadcrumb-container" />
 
     <div class="right-menu">
-      <el-dropdown class="avatar-container" trigger="click">
-        <div class="avatar-wrapper">
-          <!-- <img src="@/assets/images/avatar.png" class="user-avatar"> -->
-          <p>{{ userContext.nickName }}</p>
-          <i class="el-icon-caret-bottom" />
-        </div>
-        <el-dropdown-menu slot="dropdown" class="user-dropdown">
-          <router-link to="/">
-            <el-dropdown-item>
-              主页
-            </el-dropdown-item>
-          </router-link>
-          <router-link to="/userprofile">
-            <el-dropdown-item>
-              用户信息
-            </el-dropdown-item>
-          </router-link>
-          <!-- <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
+      <span class="margin-right-10">
+        <el-dropdown>
+          <span class="el-dropdown-link">
+            下拉菜单<i class="el-icon-arrow-down el-icon--right" />
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item v-for="org in userContext.orgs" :key="org.orgID">{{ org.orgName }}</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </span>
+      <span class="margin-right-10">
+        <el-dropdown trigger="click">
+          <!-- <div class="avatar-wrapper">
+            <p>{{ userContext.nickName }}</p>
+            <i class="el-icon-caret-bottom" />
+          </div> -->
+          <span class="el-dropdown-link">
+            @ {{ userContext.nickName }}<i class="el-icon-arrow-down el-icon--right" />
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <router-link to="/userprofile">
+              <el-dropdown-item>
+                用户信息
+              </el-dropdown-item>
+            </router-link>
+            <!-- <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
             <el-dropdown-item>Github</el-dropdown-item>
           </a>
           <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
             <el-dropdown-item>Docs</el-dropdown-item>
           </a> -->
-          <el-dropdown-item divided @click.native="logout">
-            <span style="display:block;">注销</span>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
+            <el-dropdown-item divided @click.native="logout">
+              <span style="display:block;">注销</span>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </span>
     </div>
   </div>
 </template>
@@ -66,6 +75,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.margin-right-10{
+  margin-right: 10px;
+}
 .navbar {
   height: 50px;
   overflow: hidden;
@@ -105,7 +117,7 @@ export default {
       height: 100%;
       font-size: 18px;
       color: #5a5e66;
-      vertical-align: text-bottom;
+      // vertical-align: text-bottom;
 
       &.hover-effect {
         cursor: pointer;
