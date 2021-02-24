@@ -1,12 +1,13 @@
-import { userPWDLogin, userSMSLogin, logout, setLoginUser, getInfo, getFullUserInfo } from '@/api/user'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { userPWDLogin, userSMSLogin, getFullUserInfo } from '@/api/user'
+import { getToken, setToken, removeToken, logout, setLoginUser, getInfo } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
 const getDefaultState = () => {
   return {
     token: getToken(),
     userContext: {},
-    name: ''
+    name: '',
+    orgs: []
   }
 }
 
@@ -24,6 +25,9 @@ const mutations = {
   },
   SET_NAME: (state, name) => {
     state.name = name
+  },
+  SET_ORGS: (state, orgs) => {
+    state.orgs = orgs
   }
 }
 
@@ -38,7 +42,8 @@ const actions = {
         commit('SET_USER', data.user.Context)
         commit('SET_NAME', data.user.Context.nickName)
         setToken(data.token)
-        setLoginUser(JSON.stringify(data.user.Context))
+        setLoginUser(data.user.Context)
+        commit('SET_ORGS', data.user.Context.orgs)
         resolve()
       }).catch(error => {
         reject(error)
@@ -53,8 +58,9 @@ const actions = {
         commit('SET_TOKEN', data.token)
         commit('SET_USER', data.user.Context)
         commit('SET_NAME', data.user.Context.nickName)
+        commit('SET_ORGS', data.user.Context.orgs)
         setToken(data.token)
-        setLoginUser(data.user.Context.userID)
+        setLoginUser(data.user.Context)
         resolve()
       }).catch(error => {
         reject(error)
@@ -83,7 +89,8 @@ const actions = {
         const { data } = response
         commit('SET_USER', data.Item)
         commit('SET_NAME', data.Item.nickName)
-        setLoginUser(data.Item.userID)
+        commit('SET_ORGS', data.Item.orgs)
+        setLoginUser(data.Item)
         resolve()
       }).catch(error => {
         reject(error)

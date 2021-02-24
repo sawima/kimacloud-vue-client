@@ -42,6 +42,21 @@ export const constantRoutes = [
     component: () => import('@/views/404'),
     hidden: true
   },
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/dashboard',
+    // name: 'MainBo',
+    // meta: { title: '控制台', icon: 'dashboard' },
+    children: [
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import('@/views/dashboard/index'),
+        meta: { title: '控制台', icon: 'dashboard' }
+      }
+    ]
+  },
   // {
   //   path: '/',
   //   component: Layout,
@@ -98,34 +113,21 @@ export const constantRoutes = [
         component: () => import('@/views/org/orgDetail'),
         meta: { title: '组织详情', icon: 'el-icon-tickets' },
         hidden: true
+      },
+      {
+        path: 'orgassets',
+        name: 'OrgAssets',
+        component: () => import('@/views/dashboard/assets'),
+        meta: { title: '素材管理', icon: 'dashboard' }
+      },
+      {
+        path: '/userprofile',
+        name: 'UserProfile',
+        component: () => import('@/views/login/userProfile'),
+        meta: { title: '用户信息', icon: 'dashboard' },
+        hidden: true
       }
     ]
-  },
-  {
-    path: '/',
-    component: Layout,
-    redirect: '/dashboard',
-    name: 'MainBo',
-    meta: { title: 'Dash', icon: 'dashboard' },
-    children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: '控制台', icon: 'dashboard' }
-    },
-    {
-      path: 'orgassets',
-      name: 'OrgAssets',
-      component: () => import('@/views/dashboard/assets'),
-      meta: { title: '素材管理', icon: 'dashboard' }
-    },
-    {
-      path: '/userprofile',
-      name: 'UserProfile',
-      component: () => import('@/views/login/userProfile'),
-      meta: { title: '用户信息', icon: 'dashboard' },
-      hidden: true
-    }]
   },
   // {
   //   path: '/device',

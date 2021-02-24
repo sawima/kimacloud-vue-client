@@ -3,7 +3,7 @@ import store from './store'
 import { Message } from 'element-ui'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
-import { getToken } from '@/utils/auth' // get token from cookie
+import { getToken, getInfo } from '@/utils/auth' // get token from cookie
 // import { getInfo } from '@/utils/auth' // get token from cookie
 import getPageTitle from '@/utils/get-page-title'
 
@@ -27,7 +27,23 @@ router.beforeEach(async(to, from, next) => {
       next({ path: '/' })
       NProgress.done()
     } else {
-      const hasGetUserInfo = store.getters.name
+      console.log('success login and to path -------')
+      const hasGetUserInfo = getInfo()
+      const userOrgs = store.getters.orgs
+      console.log('if org is not exist')
+      console.log(to.path)
+      if (to.path !== '/org') {
+        if (typeof userOrgs === 'undefined' || userOrgs === null || userOrgs.length === 0) {
+          console.log('org is empty')
+        }
+      }
+
+      console.log(hasGetUserInfo)
+      // if (to.path !== '/org') {
+      //   if (typeof userOrgs === 'undefined' || userOrgs === null || userOrgs.length === 0) {
+      //     next({ path: '/org' })
+      //   }
+      // }
       if (hasGetUserInfo) {
         next()
       } else {
