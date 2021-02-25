@@ -8,10 +8,10 @@
       <span class="margin-right-10">
         <el-dropdown>
           <span class="el-dropdown-link">
-            {{ userContext.orgs[0].orgName }}<i class="el-icon-arrow-down el-icon--right" />
+            {{ currentOrgName }}<i class="el-icon-arrow-down el-icon--right" />
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item v-for="org in userContext.orgs" :key="org.orgID" :data-orgID="org.orgID" @click.native="org_item_click">{{ org.orgName }}</el-dropdown-item>
+            <el-dropdown-item v-for="org in userContext.orgs" :key="org.orgID" :data-orgID="org.orgID" :data-orgName="org.orgName" @click.native="org_item_click">{{ org.orgName }}</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </span>
@@ -58,7 +58,8 @@ export default {
   },
   data() {
     return {
-      orgList: []
+      orgList: [],
+      currentOrgName: ''
     }
   },
   computed: {
@@ -69,6 +70,7 @@ export default {
   },
   created() {
     this.orgList = this.userContext.orgs
+    this.currentOrgName = this.userContext.orgs[0].orgName
   },
   methods: {
     toggleSideBar() {
@@ -79,6 +81,7 @@ export default {
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     },
     org_item_click(value) {
+      this.currentOrgName = value.target.getAttribute('data-orgName')
       this.$store.dispatch('user/setWorkOrg', value.target.getAttribute('data-orgID'))
     }
   }

@@ -213,6 +213,21 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/assets',
+    component: Layout,
+    name: 'AssetStore',
+    redirect: { name: 'assetstore' },
+    meta: { title: '素材商店', icon: 'el-icon-s-platform' },
+    children: [
+      {
+        path: 'assetstore',
+        name: 'AssetAtore',
+        component: () => import('@/views/digitalAssets/assetStore'),
+        meta: { title: '素材商店', icon: 'el-icon-s-help' }
+      }
+    ]
+  },
+  {
     path: '/appStore',
     component: Layout,
     children: [
@@ -225,11 +240,11 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/customer',
+    path: '/configuration',
     component: Layout,
     name: 'Customer',
     redirect: '/customer/newcustomer',
-    meta: { title: '客户', icon: 'el-icon-user' },
+    meta: { title: '配置', icon: 'el-icon-user' },
     children: [
       {
         path: 'newcustomer',
