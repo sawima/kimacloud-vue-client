@@ -8,10 +8,10 @@
       <span class="margin-right-10">
         <el-dropdown>
           <span class="el-dropdown-link">
-            下拉菜单<i class="el-icon-arrow-down el-icon--right" />
+            所属组织<i class="el-icon-arrow-down el-icon--right" />
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item v-for="org in userContext.orgs" :key="org.orgID">{{ org.orgName }}</el-dropdown-item>
+            <el-dropdown-item v-for="org in userContext.orgs" :key="org.orgID" :data-orgID="org.orgID" @click.native="org_item_click">{{ org.orgName }}</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </span>
@@ -77,6 +77,10 @@ export default {
     async logout() {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+    },
+    org_item_click(value) {
+      console.log('org item clicked!')
+      console.log(value.target.getAttribute('data-orgID'))
     }
   }
 }

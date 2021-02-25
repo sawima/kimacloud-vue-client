@@ -16,7 +16,8 @@ const getDefaultState = () => {
       token: getToken(),
       userContext: {},
       name: '',
-      orgs: []
+      orgs: [],
+      orgID: ''
     }
   }
 }
@@ -38,6 +39,9 @@ const mutations = {
   },
   SET_ORGS: (state, orgs) => {
     state.orgs = orgs
+  },
+  SET_CURRENTORG: (state, orgID) => {
+    state.orgID = orgID
   }
 }
 
@@ -85,6 +89,7 @@ const actions = {
       console.log(userInfo)
       if (userInfo) {
         commit('SET_USER', userInfo)
+        commit('SET_ORGS', userInfo.orgs)
         commit('SET_NAME', userInfo.nickName)
         resolve(userInfo)
       } else {
@@ -107,6 +112,11 @@ const actions = {
         reject(error)
       })
     })
+  },
+
+  setWorkOrg({ commit }, orgID) {
+    console.log('dispath orgid', orgID)
+    commit('SET_CURRENTORG', orgID)
   },
 
   // user logout

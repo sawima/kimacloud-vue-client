@@ -32,35 +32,64 @@ router.beforeEach(async(to, from, next) => {
       const userOrgs = hasGetUserInfo.orgs
       console.log('if org is not exist')
       console.log(to.path)
-      if (to.path !== '/org') {
+      console.log(userOrgs)
+      if (to.path !== '/register') {
         if (typeof userOrgs === 'undefined' || userOrgs === null || userOrgs.length === 0) {
           console.log('org is empty')
+          next({ path: '/register' })
+          NProgress.done()
+          // router.push('/org/newOrg')
+        } else {
+          console.log('hasGetUserInfo!!!')
+          console.log(hasGetUserInfo)
+          if (hasGetUserInfo) {
+            next()
+          } else {
+            console.log('try to get user info')
+            try {
+              console.log('next to', to.fullPath)
+              await store.dispatch('user/refreshUserInfo')
+              console.log('next to', to.path)
+              next()
+            } catch (error) {
+              // remove token and go to login page to re-login
+              await store.dispatch('user/resetToken')
+              Message.error(error || 'Has Error')
+              next(`/login?redirect=${to.path}`)
+              NProgress.done()
+            }
+          }
         }
+      } else {
+        console.log('empty org need create org')
+        next()
+        // NProgress.done()
       }
 
-      console.log(hasGetUserInfo)
+      // console.log('hasGetUserInfo!!!')
+      // console.log(hasGetUserInfo)
       // if (to.path !== '/org') {
       //   if (typeof userOrgs === 'undefined' || userOrgs === null || userOrgs.length === 0) {
       //     next({ path: '/org' })
       //   }
       // }
-      if (hasGetUserInfo) {
-        next()
-      } else {
-        console.log('try to get user info')
-        try {
-          console.log('next to', to.fullPath)
-          await store.dispatch('user/refreshUserInfo')
-          console.log('next to', to.path)
-          next()
-        } catch (error) {
-          // remove token and go to login page to re-login
-          await store.dispatch('user/resetToken')
-          Message.error(error || 'Has Error')
-          next(`/login?redirect=${to.path}`)
-          NProgress.done()
-        }
-      }
+      // if (hasGetUserInfo) {
+      //   next()
+      // } else {
+      //   console.log('try to get user info')
+      //   try {
+      //     console.log('next to', to.fullPath)
+      //     await store.dispatch('user/refreshUserInfo')
+      //     console.log('next to', to.path)
+      //     next()
+      //   } catch (error) {
+      //     // remove token and go to login page to re-login
+      //     await store.dispatch('user/resetToken')
+      //     Message.error(error || 'Has Error')
+      //     next(`/login?redirect=${to.path}`)
+      //     NProgress.done()
+      //   }
+      // }
     }
   } else {
     /* has no token*/
