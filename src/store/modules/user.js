@@ -8,8 +8,9 @@ const getDefaultState = () => {
     return {
       token: getToken(),
       userContext: userInfo,
-      name: userInfo.nickName || '',
-      orgs: userInfo.orgs || []
+      name: userInfo.nickName,
+      orgs: userInfo.orgs,
+      orgID: userInfo.orgs ? userInfo.orgs[0].orgID : ''
     }
   } else {
     return {
@@ -58,6 +59,7 @@ const actions = {
         setToken(data.token)
         setLoginUser(data.user.Context)
         commit('SET_ORGS', data.user.Context.orgs)
+        commit('SET_CURRENTORG', data.user.Context.orgs ? data.user.Context.orgs[0].orgID : '')
         resolve()
       }).catch(error => {
         reject(error)
@@ -69,10 +71,13 @@ const actions = {
     return new Promise((resolve, reject) => {
       userSMSLogin({ mobile: mobile.trim(), verifyCode: smsCode }).then(response => {
         const { data } = response
+        console.log('sms login')
+        console.log(data)
         commit('SET_TOKEN', data.token)
         commit('SET_USER', data.user.Context)
         commit('SET_NAME', data.user.Context.nickName)
         commit('SET_ORGS', data.user.Context.orgs)
+        commit('SET_CURRENTORG', data.user.Context.orgs ? data.user.Context.orgs.orgID : '')
         setToken(data.token)
         setLoginUser(data.user.Context)
         resolve()
@@ -91,6 +96,7 @@ const actions = {
         commit('SET_USER', userInfo)
         commit('SET_ORGS', userInfo.orgs)
         commit('SET_NAME', userInfo.nickName)
+        commit('SET_CURRENTORG', userInfo.orgs ? userInfo.orgs[0].orgID : '')
         resolve(userInfo)
       } else {
         reject()
@@ -106,6 +112,7 @@ const actions = {
         commit('SET_USER', data.Item)
         commit('SET_NAME', data.Item.nickName)
         commit('SET_ORGS', data.Item.orgs)
+        commit('SET_CURRENTORG', data.Item.orgs ? data.Item.orgs[0].orgID : '')
         setLoginUser(data.Item)
         resolve()
       }).catch(error => {

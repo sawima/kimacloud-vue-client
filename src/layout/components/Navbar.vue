@@ -8,7 +8,7 @@
       <span class="margin-right-10">
         <el-dropdown>
           <span class="el-dropdown-link">
-            所属组织<i class="el-icon-arrow-down el-icon--right" />
+            {{ userContext.orgs[0].orgName }}<i class="el-icon-arrow-down el-icon--right" />
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item v-for="org in userContext.orgs" :key="org.orgID" :data-orgID="org.orgID" @click.native="org_item_click">{{ org.orgName }}</el-dropdown-item>
@@ -79,8 +79,7 @@ export default {
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     },
     org_item_click(value) {
-      console.log('org item clicked!')
-      console.log(value.target.getAttribute('data-orgID'))
+      this.$store.dispatch('user/setWorkOrg', value.target.getAttribute('data-orgID'))
     }
   }
 }

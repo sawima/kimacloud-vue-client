@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-container">
-    <div v-if="hasOrg">
+    <!-- <div v-if="hasOrg">
       <el-row :gutter="20">
         <el-col :span="16">
           <h3>选择终端所属组织</h3>
@@ -14,8 +14,8 @@
           </el-select>
         </el-col>
       </el-row>
-    </div>
-    <div v-else>
+    </div> -->
+    <div>
       <el-row :gutter="20">
         <el-col :span="16">
           <el-card class="box-card">
@@ -61,7 +61,7 @@ export default {
   name: 'RegisterORG',
   data() {
     return {
-      hasOrg: false,
+      // hasOrg: false,
       targetOrg: '',
       newOrgForm: {
         orgName: '',
@@ -83,10 +83,10 @@ export default {
   created() {
     // this.fetchData()
     this.orgList = this.userContext.orgs || []
-    console.log(this.orgList)
-    if (this.orgList.length > 0) {
-      this.hasOrg = true
-    }
+    // console.log(this.orgList)
+    // if (this.orgList.length > 0) {
+    //   this.hasOrg = true
+    // }
   },
   methods: {
     onSubmit() {
@@ -104,10 +104,11 @@ export default {
               this.userContext.orgs = this.orgList
               setLoginUser(this.userContext)
               this.$store.dispatch('user/getUserInfo')
-              this.newOrgForm = {}
-              this.selectedModel = ''
-              this.$message({ type: 'success', message: res.message })
-              this.hasOrg = true
+              // this.newOrgForm = {}
+              // this.selectedModel = ''
+              // this.$message({ type: 'success', message: res.message })
+              // this.hasOrg = true
+              this.$router.push('/')
             })
           } else {
             this.$message('超过创建团队数量限制')
@@ -117,11 +118,11 @@ export default {
     },
     resetForm() {
       this.newOrgForm = {}
-    },
-    select_org_change(value) {
-      this.$store.dispatch('user/setWorkOrg', value)
-      this.$router.push('/')
     }
+    // select_org_change(value) {
+    //   this.$store.dispatch('user/setWorkOrg', value)
+    //   this.$router.push('/')
+    // }
   }
 }
 </script>
